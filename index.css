@@ -190,3 +190,77 @@ main {
   color: white;
   border-radius: 10px;
 }
+
+/*** VANS PAGE ***/
+.van-list-container {
+  flex: 1;
+  width: 100%;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+}
+
+.van-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  gap: 34px;
+  margin-top: 57px;
+}
+
+.van-container {
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.van-container img {
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+.van-info {
+  padding: 10px 20px;
+}
+
+.van-info span {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.van-type {
+  height: 34px;
+  max-width: 150px;
+  padding: 6px 26px;
+  font-weight: 500;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffead0;
+  color: #4d4d4d;
+}
+
+.van-type:hover {
+  color: #ffead0;
+}
+
+.van-type:focus {
+  outline: none;
+}
+
+.van-type.selected {
+  color: #ffead0;
+}
+
+.van-type.simple:hover,
+.van-type.simple.selected {
+  background-color: #e17654;
+}
+
+.van-type.rugged:hover,
+.van-type.rugged.selected {
+  background-color: #115e59;
+}
+
+.van-type.luxury:hover,
+.van-type.luxury.selected {
+  background-color: #161616;
+}

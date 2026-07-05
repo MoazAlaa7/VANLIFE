@@ -16,7 +16,7 @@ export default function Vans() {
         <Link to={`/vans/${van.id}`}>
           <img src={van.imageUrl} alt="van-image" />
           <div className="van-info">
-            <h3>{van.name}</h3>
+            <h2>{van.name}</h2>
             <h3>
               ${van.price}
               <span>/day</span>

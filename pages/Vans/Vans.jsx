@@ -20,7 +20,10 @@ export default function Vans() {
   const vanElements = filteredVans.map((van) => {
     return (
       <div key={van.id} className="van-container">
-        <Link to={van.id}>
+        {/* Passing search params to the VanDetail page using the Link state prop
+        to preserve the search params when navigating to the VanDetail page and
+        back. */}
+        <Link to={van.id} state={{ search: `?${searchParams.toString()}` }}>
           <img src={van.imageUrl} alt="van-image" />
           <div className="van-info">
             <h2>{van.name}</h2>
@@ -35,31 +38,42 @@ export default function Vans() {
     );
   });
 
+  function handleFilterChange(key, value) {
+    setSearchParams((prevParams) => {
+      if (value === null) {
+        prevParams.delete(key);
+      } else {
+        prevParams.set(key, value);
+      }
+      return prevParams;
+    });
+  }
+
   return (
     <div className="van-list-container">
       <h1>Explore our van options</h1>
       <div className="van-list-filter-buttons">
         <button
           className={`van-type simple ${typeFilter === "simple" ? "selected" : ""}`}
-          onClick={() => setSearchParams({ type: "simple" })}
+          onClick={() => handleFilterChange("type", "simple")}
         >
           Simple
         </button>
         <button
           className={`van-type luxury ${typeFilter === "luxury" ? "selected" : ""}`}
-          onClick={() => setSearchParams({ type: "luxury" })}
+          onClick={() => handleFilterChange("type", "luxury")}
         >
           Luxury
         </button>
         <button
           className={`van-type rugged ${typeFilter === "rugged" ? "selected" : ""}`}
-          onClick={() => setSearchParams({ type: "rugged" })}
+          onClick={() => handleFilterChange("type", "rugged")}
         >
           Rugged
         </button>
         {typeFilter ? (
           <button
-            onClick={() => setSearchParams({})}
+            onClick={() => handleFilterChange("type", null)}
             className="clear-filters-button"
           >
             Clear filters

@@ -5,6 +5,7 @@ import Layout from "./components/Layout";
 import HostLayout from "./components/HostLayout";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import NotFound from "./pages/NotFound";
 import Vans from "./pages/Vans/Vans";
 import VanDetail from "./pages/Vans/VanDetail";
 import Dashboard from "./pages/Host/Dashboard";
@@ -37,6 +38,8 @@ export default function App() {
             </Route>
             <Route path="reviews" element={<Reviews />} />
           </Route>
+
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>

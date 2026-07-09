@@ -36,7 +36,7 @@ main {
   flex-direction: column;
 }
 
-a:not(.site-logo-link):hover,
+a:not(.site-logo-link, .link-button):hover,
 a.active-link {
   font-weight: bold;
   text-decoration: underline;
@@ -431,5 +431,16 @@ button.van-type.rugged {
 
 .back-button {
   display: block;
+  width: fit-content;
   margin: 40px 20px;
+}
+
+.not-found-container {
+  padding-inline: 26px;
+}
+
+.not-found-container .link-button {
+  width: 100%;
+  background-color: #161616;
+  color: white;
 }

@@ -1,16 +1,28 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
+import { getVans } from "../../api";
 
 export default function Vans() {
   const [vans, setVans] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const typeFilter = searchParams.get("type");
 
   useEffect(() => {
-    fetch("/api/vans")
-      .then((res) => res.json())
-      .then((data) => setVans(data.vans));
+    async function loadVans() {
+      setLoading(true);
+      try {
+        const data = await getVans();
+        setVans(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadVans();
   }, []);
 
   const filteredVans = typeFilter
@@ -53,6 +65,26 @@ export default function Vans() {
     });
   }
 
+  function renderVanElements() {
+    if (error) {
+      return (
+        <h2 className="error-message">
+          There was an error: <span>{error.message}</span>
+        </h2>
+      );
+    }
+
+    if (loading) {
+      return <h2 className="loading-message">Loading your vans...</h2>;
+    }
+
+    if (vans.length === 0) {
+      return <h2 className="loading-message">You have no vans yet.</h2>;
+    }
+
+    return vanElements;
+  }
+
   return (
     <div className="van-list-container">
       <h1>Explore our van options</h1>
@@ -84,7 +116,7 @@ export default function Vans() {
           </button>
         ) : null}
       </div>
-      <div className="van-list">{vanElements}</div>
+      <div className="van-list">{renderVanElements()}</div>
     </div>
   );
 }

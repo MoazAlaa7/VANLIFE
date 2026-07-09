@@ -23,7 +23,11 @@ export default function Vans() {
         {/* Passing search params to the VanDetail page using the Link state prop
         to preserve the search params when navigating to the VanDetail page and
         back. */}
-        <Link to={van.id} state={{ search: `?${searchParams.toString()}` }}>
+        <Link
+          to={van.id}
+          state={{ search: `?${searchParams.toString()}`, type: typeFilter }}
+          className="van-link"
+        >
           <img src={van.imageUrl} alt="van-image" />
           <div className="van-info">
             <h2>{van.name}</h2>

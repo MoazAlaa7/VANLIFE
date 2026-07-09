@@ -7,6 +7,7 @@ export default function VanDetail() {
 
   const location = useLocation();
   const search = location.state?.search || "";
+  const type = location.state?.type || "all";
 
   useEffect(() => {
     fetch(`/api/vans/${id}`)
@@ -19,7 +20,7 @@ export default function VanDetail() {
       {/* Using the search params from the Link state prop to preserve the search
       params when navigating back to the Vans page. */}
       <Link to={`..${search}`} relative="path" className="back-button">
-        &larr; <span>Back to all vans</span>
+        &larr; <span>Back to {type} vans</span>
       </Link>
       {van ? (
         <div className="van-detail">

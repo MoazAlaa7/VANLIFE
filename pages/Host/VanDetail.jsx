@@ -57,7 +57,7 @@ export default function VanDetail() {
           </NavLink>
         </nav>
 
-        <Outlet context={{ van }} />
+        {van && <Outlet context={{ van }} />}
       </div>
     </section>
   );

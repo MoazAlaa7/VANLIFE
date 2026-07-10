@@ -1,19 +1,43 @@
 import { useState, useEffect } from "react";
 import { Link, useParams, useLocation } from "react-router";
+import { getVans } from "../../api";
 
 export default function VanDetail() {
   const { id } = useParams();
   const [van, setVan] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const location = useLocation();
   const search = location.state?.search || "";
   const type = location.state?.type || "all";
 
   useEffect(() => {
-    fetch(`/api/vans/${id}`)
-      .then((res) => res.json())
-      .then((data) => setVan(data.vans));
+    async function loadVans() {
+      setLoading(true);
+      try {
+        const data = await getVans(id);
+        setVan(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadVans();
   }, [id]);
+
+  if (error) {
+    return (
+      <h2 className="error-message">
+        There was an error: <span>{error.message}</span>
+      </h2>
+    );
+  }
+
+  if (loading) {
+    return <h2 className="loading-message">Loading van details...</h2>;
+  }
 
   return (
     <div className="van-detail-container">

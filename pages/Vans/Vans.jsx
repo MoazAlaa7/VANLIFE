@@ -75,11 +75,13 @@ export default function Vans() {
     }
 
     if (loading) {
-      return <h2 className="loading-message">Loading your vans...</h2>;
+      return <h2 className="loading-message">Loading available vans...</h2>;
     }
 
     if (vans.length === 0) {
-      return <h2 className="loading-message">You have no vans yet.</h2>;
+      return (
+        <h2 className="loading-message">No vans are available right now.</h2>
+      );
     }
 
     return vanElements;

@@ -3,10 +3,11 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
 import Layout from "./components/Layout";
 import HostLayout from "./components/HostLayout";
+import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import NotFound from "./pages/NotFound";
 import Vans from "./pages/Vans/Vans";
+import Login from "./pages/Login";
 import VanDetail from "./pages/Vans/VanDetail";
 import Dashboard from "./pages/Host/Dashboard";
 import Income from "./pages/Host/Income";
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
+          <Route path="login" element={<Login />} />
           <Route path="vans" element={<Vans />} />
           <Route path="vans/:id" element={<VanDetail />} />
 

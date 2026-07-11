@@ -13,7 +13,7 @@ export default function VanDetail() {
       setLoading(true);
       try {
         const data = await getHostVans(id);
-        setVan(data);
+        setVan(data[0]);
       } catch (err) {
         setError(err);
       } finally {

@@ -409,6 +409,67 @@ button.van-type.rugged {
   font-weight: 500;
 }
 
+/*** HOST INCOME PAGE ***/
+.host-income {
+  padding-inline: 26px;
+}
+
+.host-income > p {
+  color: #4d4d4d;
+}
+
+.host-income > p span {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.host-income > h2 {
+  font-size: 38px;
+  font-weight: 900;
+  margin-top: 0;
+}
+
+img.graph {
+  width: 500px;
+  max-width: 100%;
+}
+
+.host-income .info-header > p {
+  color: #4d4d4d;
+}
+
+.host-income .info-header > p span {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.host-income .info-header > h3 {
+  font-weight: 700;
+  font-size: 24px;
+  margin-top: 60px;
+}
+
+.host-income .transaction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  margin-bottom: 20px;
+  padding: 35px 29px;
+  border-radius: 6px;
+}
+.host-income .transaction > h3 {
+  font-size: 36px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.host-income .transaction > p {
+  font-weight: 500;
+  font-size: 20px;
+  color: #4d4d4d;
+}
+
 /*** HOST VANS PAGE ***/
 .host-van-list {
   display: flex;
@@ -508,6 +569,71 @@ button.van-type.rugged {
 .host-van-detail-image {
   height: 100px;
   border-radius: 5px;
+}
+
+/*** HOST REVIEWS PAGE ***/
+.host-reviews {
+  padding-inline: 26px;
+  margin-top: 30px;
+}
+
+.host-reviews .top-text {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.host-reviews .top-text > h2 {
+  font-weight: 700;
+  font-size: 32px;
+  margin: 0;
+  margin-right: 20px;
+}
+
+.host-reviews .top-text > p {
+  margin: 0;
+  color: #4d4d4d;
+}
+
+.host-reviews .top-text > p span {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.host-reviews > img {
+  margin-bottom: 30px;
+}
+
+.host-reviews .review {
+  margin-block: 25px;
+}
+
+.host-reviews .review .info {
+  display: flex;
+}
+
+.host-reviews .review .name {
+  margin-right: 10px;
+  font-weight: 600;
+}
+
+.host-reviews .review .date {
+  color: #8c8c8c;
+}
+
+.host-reviews .review > p {
+  margin-top: 0;
+}
+
+.host-reviews hr {
+  background-color: #c7c7c7;
+  height: 1px;
+  border: 0;
+}
+
+.host-reviews .review-star {
+  color: #ff8c38;
+  margin-right: 5px;
 }
 
 .back-button {

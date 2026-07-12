@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { BsStarFill } from "react-icons/bs";
 import { getHostVans } from "../../api";
 
@@ -7,6 +7,9 @@ export default function Dashboard() {
   const [vans, setVans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const location = useLocation();
+
   useEffect(() => {
     async function loadVans() {
       setLoading(true);
@@ -50,7 +53,9 @@ export default function Dashboard() {
     <>
       <section className="host-dashboard-earnings">
         <div className="info">
-          <h1>Welcome!</h1>
+          <h1>
+            Welcome{location.state?.name ? `, ${location.state.name}` : ""}!
+          </h1>
           <p>
             Income last <span>30 days</span>
           </p>

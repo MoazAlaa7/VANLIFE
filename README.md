@@ -4,6 +4,10 @@ A van rental marketplace built with React, Vite, React Router, and Firebase Fire
 
 **Live demo:** [vanlife-camping.vercel.app](https://vanlife-camping.vercel.app/)
 
+## 🎨 Design:
+The UI follows the provided Figma design:
+[Figma file](https://www.figma.com/design/c2UAzw7lECIHaxXu5RBB9V/-VanLife)
+
 ## ✨ Features
  
 - **Browse available vans and view detailed information for each van** 

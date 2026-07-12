@@ -22,10 +22,13 @@ export default function Login() {
   function submit() {
     setStatus("submitting");
     loginUser(loginFormData)
-      .then(() => {
+      .then((data) => {
         setError(null);
         localStorage.setItem("loggedin", true);
-        navigate(location.state?.from || "/host", { replace: true });
+        navigate(location.state?.from || "/host", {
+          replace: true,
+          state: { name: data.user.name },
+        });
       })
       .catch((err) => {
         setError(err);
@@ -81,11 +84,19 @@ export default function Login() {
           Don&rsquo;t have an account? <span>Create one now</span>
         </p>
       </div>
-      {isLoggedIn && (
+      {isLoggedIn ? (
         <Link to="/" className="login-link logout" onClick={fakeLogout}>
           <span>Sign out</span>
           <img src={logoutImageUrl} className="logout-icon" />
         </Link>
+      ) : (
+        <div className="test-user">
+          <h4>For testing use:</h4>
+          <p>
+            Email:<span> t@test.com</span> | Password:
+            <span> p123</span>
+          </p>
+        </div>
       )}
     </div>
   );

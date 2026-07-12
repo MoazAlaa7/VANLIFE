@@ -36,7 +36,9 @@ A van rental marketplace built with React, Vite, React Router, and Firebase Fire
    npm run dev
    ```
 
-3. Open the local URL shown by Vite in your browser.
+3. Setup your own Firebase Firestore database with `vans` and `users` collections matching the shape expected in `api.js`.
+   
+4. Open the local URL shown by Vite in your browser.
 
 ## Demo Login
 

@@ -745,3 +745,14 @@ img.graph {
   width: 18px;
   height: 18px;
 }
+
+.test-user {
+  text-align: center;
+  font-style: italic;
+}
+.test-user h4 {
+  margin: 0;
+}
+.test-user span {
+  font-weight: 500;
+}

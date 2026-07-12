@@ -38,13 +38,6 @@ A van rental marketplace built with React, Vite, React Router, and Firebase Fire
 
 3. Open the local URL shown by Vite in your browser.
 
-## Available Scripts
-
-- `npm run dev` — start the Vite development server
-- `npm run build` — create a production build
-- `npm run preview` — preview the production build locally
-- `npm run lint` — run ESLint
-
 ## Demo Login
 
 For testing, the app includes a sample login:

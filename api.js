@@ -1,45 +1,68 @@
-export async function getVans(id) {
-  const url = id ? `/api/vans/${id}` : "/api/vans";
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw {
-      message: "Failed to fetch vans",
-      statusText: res.statusText,
-      status: res.status,
-    };
-  }
-  const data = await res.json();
-  return data.vans;
+import FIREBASE_CONF from "./DB_CONF";
+import { initializeApp } from "firebase/app";
+import {
+  getFirestore,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore/lite";
+
+const app = initializeApp(FIREBASE_CONF);
+const db = getFirestore(app);
+
+export async function getVans() {
+  const querySnapshot = await getDocs(collection(db, "vans"));
+  const vans = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+  return vans;
 }
 
-export async function getHostVans(id) {
-  const url = id ? `/api/host/vans/${id}` : "/api/host/vans";
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw {
-      message: "Failed to fetch your vans",
-      statusText: res.statusText,
-      status: res.status,
-    };
-  }
-  const data = await res.json();
-  return data.vans;
+export async function getVan(id) {
+  const docRef = doc(db, "vans", id);
+  const docSnap = await getDoc(docRef);
+  const van = { ...docSnap.data(), id: docSnap.id };
+  return van;
 }
 
-export async function loginUser(creds) {
-  const res = await fetch("/api/login", {
-    method: "post",
-    body: JSON.stringify(creds),
-  });
-  const data = await res.json();
+export async function getHostVans() {
+  const q = query(collection(db, "vans"), where("hostId", "==", "123"));
 
-  if (!res.ok) {
-    throw {
-      message: data.message,
-      statusText: res.statusText,
-      status: res.status,
-    };
+  const querySnapshot = await getDocs(q);
+  const vans = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+  return vans;
+}
+
+export async function getHostVan(id) {
+  const docRef = doc(db, "vans", id);
+  const docSnap = await getDoc(docRef);
+  const van = { ...docSnap.data(), id: docSnap.id };
+  return van.hostId === "123" ? van : null;
+}
+
+export async function loginUser({ email, password }) {
+  const q = query(
+    collection(db, "users"),
+    where("email", "==", email),
+    where("password", "==", password),
+  );
+
+  const querySnapshot = await getDocs(q);
+
+  if (querySnapshot.empty) {
+    const error = new Error("No user with those credentials found!");
+    error.status = 401;
+    throw error;
   }
 
-  return data;
+  const [userDoc] = querySnapshot.docs;
+  const user = { ...userDoc.data(), id: userDoc.id };
+  // Security 😎
+  delete user.password;
+
+  return {
+    user,
+    token: "firebase-login-token",
+  };
 }

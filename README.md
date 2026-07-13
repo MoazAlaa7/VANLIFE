@@ -25,6 +25,7 @@ The UI follows the provided Figma design:
 - React Router
 - Vite
 - Firebase Firestore
+- Firebase Auth
 - ESLint
 
 ## 🚀 Getting Started

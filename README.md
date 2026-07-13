@@ -50,4 +50,4 @@ The UI follows the provided Figma design:
 For testing, the app includes a sample login:
 
 - Email: `t@test.com`
-- Password: `p123`
+- Password: `p123456`

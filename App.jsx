@@ -1,5 +1,3 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
 import Layout from "./components/Layout";
 import HostLayout from "./components/HostLayout";
@@ -18,35 +16,38 @@ import Reviews from "./pages/Host/Reviews";
 import HostVanPhotos from "./pages/Host/VanPhotos";
 import HostVanPricing from "./pages/Host/VanPricing";
 import HostVanInfo from "./pages/Host/VanInfo";
+import { AuthProvider } from "./contexts/AuthContext";
 
 export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="login" element={<Login />} />
-          <Route path="vans" element={<Vans />} />
-          <Route path="vans/:id" element={<VanDetail />} />
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="login" element={<Login />} />
+            <Route path="vans" element={<Vans />} />
+            <Route path="vans/:id" element={<VanDetail />} />
 
-          <Route element={<AuthRequired />}>
-            <Route path="host" element={<HostLayout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="income" element={<Income />} />
-              <Route path="vans" element={<HostVans />} />
-              <Route path="vans/:id" element={<HostVanDetail />}>
-                <Route index element={<HostVanInfo />} />
-                <Route path="pricing" element={<HostVanPricing />} />
-                <Route path="photos" element={<HostVanPhotos />} />
+            <Route element={<AuthRequired />}>
+              <Route path="host" element={<HostLayout />}>
+                <Route index element={<Dashboard />} />
+                <Route path="income" element={<Income />} />
+                <Route path="vans" element={<HostVans />} />
+                <Route path="vans/:id" element={<HostVanDetail />}>
+                  <Route index element={<HostVanInfo />} />
+                  <Route path="pricing" element={<HostVanPricing />} />
+                  <Route path="photos" element={<HostVanPhotos />} />
+                </Route>
+                <Route path="reviews" element={<Reviews />} />
               </Route>
-              <Route path="reviews" element={<Reviews />} />
             </Route>
-          </Route>
 
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

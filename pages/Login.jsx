@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
-import { loginUser } from "../api";
+import { useAuth } from "../contexts/AuthContext";
 import logoutImageUrl from "/assets/images/logout-icon.png";
 
 export default function Login() {
@@ -8,34 +8,33 @@ export default function Login() {
     email: "",
     password: "",
   });
-  const [status, setStatus] = useState("idle");
-  const [error, setError] = useState(null);
 
   const location = useLocation();
   const navigate = useNavigate();
+  const { user, login, logout, status, error, setError } = useAuth();
 
-  const isLoggedIn = localStorage.getItem("loggedin");
-  const fakeLogout = () => {
-    localStorage.removeItem("loggedin");
-  };
+  async function handleLogin(e) {
+    e.preventDefault();
+    setError(null);
 
-  function submit() {
-    setStatus("submitting");
-    loginUser(loginFormData)
-      .then((data) => {
-        setError(null);
-        localStorage.setItem("loggedin", true);
-        navigate(location.state?.from || "/host", {
-          replace: true,
-          state: { name: data.user.name },
-        });
-      })
-      .catch((err) => {
-        setError(err);
-      })
-      .finally(() => {
-        setStatus("idle");
+    try {
+      const data = await login(loginFormData);
+      navigate(location.state?.from || "/host", {
+        replace: true,
+        state: { name: data.user.name },
       });
+    } catch {
+      // Auth context already throws error.
+    }
+  }
+
+  async function handleLogout(e) {
+    e.preventDefault();
+    try {
+      await logout();
+    } catch {
+      // Auth context already throws error.
+    }
   }
 
   function handleChange(e) {
@@ -50,7 +49,7 @@ export default function Login() {
       )}
       <h1>Sign in to your account</h1>
       {error?.message && <p className="login-error">{error.message}</p>}
-      <form action={submit} className="login-form">
+      <form onSubmit={handleLogin} className="login-form">
         <label htmlFor="email">
           <input
             name="email"
@@ -84,8 +83,8 @@ export default function Login() {
           Don&rsquo;t have an account? <span>Create one now</span>
         </p>
       </div>
-      {isLoggedIn ? (
-        <Link to="/" className="login-link logout" onClick={fakeLogout}>
+      {user ? (
+        <Link to="/" className="login-link logout" onClick={handleLogout}>
           <span>Sign out</span>
           <img src={logoutImageUrl} className="logout-icon" />
         </Link>
@@ -94,7 +93,7 @@ export default function Login() {
           <h4>For testing use:</h4>
           <p>
             Email:<span> t@test.com</span> | Password:
-            <span> p123</span>
+            <span> p123456</span>
           </p>
         </div>
       )}

@@ -1,10 +1,13 @@
 import { Outlet, Navigate, useLocation } from "react-router";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function AuthRequired() {
-  const isLoggedIn = localStorage.getItem("loggedin");
   const location = useLocation();
+  const { user, authStateReady } = useAuth();
 
-  if (!isLoggedIn) {
+  if (!authStateReady) return <h1>Loading...</h1>;
+
+  if (!user) {
     return (
       <Navigate
         to="/login"
@@ -16,5 +19,6 @@ export default function AuthRequired() {
       />
     );
   }
+
   return <Outlet />;
 }

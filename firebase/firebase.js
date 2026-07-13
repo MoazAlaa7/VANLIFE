@@ -1,4 +1,4 @@
-import FIREBASE_CONF from "../DB_CONF";
+import FIREBASE_CONF from "./env";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore/lite";

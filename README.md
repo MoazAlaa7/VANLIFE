@@ -17,7 +17,7 @@ The UI follows the provided Figma design:
 - **Dynamic navigation with active links**
 - **Responsive design**
 - **Firebase-backed data** — vans and users are stored in Firestore
-- **Firebase Authentication with email and password** 
+- **Firebase Authentication** — with email and password
 
 ## Tech Stack
 

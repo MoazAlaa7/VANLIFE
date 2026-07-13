@@ -1,7 +1,4 @@
-import FIREBASE_CONF from "./env";
-import { initializeApp } from "firebase/app";
 import {
-  getFirestore,
   collection,
   doc,
   getDoc,
@@ -9,9 +6,9 @@ import {
   query,
   where,
 } from "firebase/firestore/lite";
+import { auth, db } from "./firebase/firebase.js";
 
-const app = initializeApp(FIREBASE_CONF);
-const db = getFirestore(app);
+export { loginUser, logoutUser, getAuthError } from "./firebase/auth.js";
 
 export async function getVans() {
   const querySnapshot = await getDocs(collection(db, "vans"));
@@ -27,7 +24,14 @@ export async function getVan(id) {
 }
 
 export async function getHostVans() {
-  const q = query(collection(db, "vans"), where("hostId", "==", "123"));
+  const uid = auth.currentUser?.uid;
+  if (!uid) {
+    const error = new Error("Not authenticated");
+    error.status = 401;
+    throw error;
+  }
+
+  const q = query(collection(db, "vans"), where("hostId", "==", uid));
 
   const querySnapshot = await getDocs(q);
   const vans = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
@@ -35,34 +39,15 @@ export async function getHostVans() {
 }
 
 export async function getHostVan(id) {
-  const docRef = doc(db, "vans", id);
-  const docSnap = await getDoc(docRef);
-  const van = { ...docSnap.data(), id: docSnap.id };
-  return van.hostId === "123" ? van : null;
-}
-
-export async function loginUser({ email, password }) {
-  const q = query(
-    collection(db, "users"),
-    where("email", "==", email),
-    where("password", "==", password),
-  );
-
-  const querySnapshot = await getDocs(q);
-
-  if (querySnapshot.empty) {
-    const error = new Error("No user with those credentials found!");
+  const uid = auth.currentUser?.uid;
+  if (!uid) {
+    const error = new Error("Not authenticated");
     error.status = 401;
     throw error;
   }
 
-  const [userDoc] = querySnapshot.docs;
-  const user = { ...userDoc.data(), id: userDoc.id };
-  // Security 😎
-  delete user.password;
-
-  return {
-    user,
-    token: "firebase-login-token",
-  };
+  const docRef = doc(db, "vans", id);
+  const docSnap = await getDoc(docRef);
+  const van = { ...docSnap.data(), id: docSnap.id };
+  return van.hostId === uid ? van : null;
 }

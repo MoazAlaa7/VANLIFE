@@ -17,6 +17,7 @@ The UI follows the provided Figma design:
 - **Dynamic navigation with active links**
 - **Responsive design**
 - **Firebase-backed data** — vans and users are stored in Firestore
+- **Firebase Authentication** — with email and password
 
 ## Tech Stack
 
@@ -24,6 +25,7 @@ The UI follows the provided Figma design:
 - React Router
 - Vite
 - Firebase Firestore
+- Firebase Auth
 - ESLint
 
 ## 🚀 Getting Started
@@ -49,6 +51,4 @@ The UI follows the provided Figma design:
 For testing, the app includes a sample login:
 
 - Email: `t@test.com`
-- Password: `p123`
-
-⚠️ **Auth is mocked, not production-grade.** `loginUser` in `api.js` queries Firestore for a document where `password` matches a plaintext field — passwords are not hashed and **`hostId` is hardcoded to `"123"`**, so every "host" sees the same fixed set of vans regardless of who's logged in. Replace with [Firebase Auth](https://firebase.google.com/docs/auth) before treating this as anything beyond a learning project.
+- Password: `p123456`

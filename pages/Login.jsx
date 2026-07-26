@@ -50,26 +50,24 @@ export default function Login() {
       <h1>Sign in to your account</h1>
       {error?.message && <p className="login-error">{error.message}</p>}
       <form onSubmit={handleLogin} className="login-form">
-        <label htmlFor="email">
-          <input
-            name="email"
-            type="email"
-            placeholder="Email address"
-            required
-            onChange={handleChange}
-            value={loginFormData.email}
-          />
-        </label>
-        <label htmlFor="password">
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
-            required
-            onChange={handleChange}
-            value={loginFormData.password}
-          />
-        </label>
+        <input
+          name="email"
+          type="email"
+          placeholder="Email address"
+          required
+          onChange={handleChange}
+          value={loginFormData.email}
+          aria-label="Username"
+        />
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          required
+          onChange={handleChange}
+          value={loginFormData.password}
+          aria-label="Password"
+        />
         <button
           type="submit"
           className="signin-button link-button"
